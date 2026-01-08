@@ -1,0 +1,30 @@
+﻿app = "shorts-generator"
+primary_region = "par"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+  
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+  
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+  
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+[env]
+  PORT = "3000"
+  NODE_ENV = "production"
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1
